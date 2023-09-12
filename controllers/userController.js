@@ -4,10 +4,10 @@ const jwt = require('jsonwebtoken');
 
 
 const createUser = async (req, res) => {
-    const { name,passaword, email} = req.body;
+    const { name,password, email} = req.body;
     await User.create({
        name: name,
-       passaword: passaword,
+       password: password,
        email:email
 
 
@@ -28,21 +28,22 @@ const findUsers = async (req, res) => {
         res.status(404).json("Ocorreu um erro na busca!");
     };
 }
-/*
+
 const deleteUser = async (req, res) => {
     const id = parseInt(req.params.id);
     try {
         await User.destroy({
             where: {
-                
+                id:id
             }
         }).then(() => {
-            res.json("         ");
+            res.json(" Usuário deletado com sucesso  ");
         })
     } catch (error) {
-        res.status(404).json("      ");
+        res.status(404).json("É isso amigos");
     }
 }
+/*
 const updateUser = async (req, res) => {
     const id = parseInt(req.params.id);
     const {       } = req.body;
@@ -89,5 +90,5 @@ const authenticatedUser = async (req, res) => {
 }
 module.exports = { createUser, findUsers, deleteUser, updateUser, authenticatedUser };
 */
-module.exports = { createUser,  findUsers};
+module.exports = { createUser,  findUsers,deleteUser};
 
