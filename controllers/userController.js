@@ -43,14 +43,16 @@ const deleteUser = async (req, res) => {
         res.status(404).json("É isso amigos");
     }
 }
-/*
+
 const updateUser = async (req, res) => {
     const id = parseInt(req.params.id);
-    const {       } = req.body;
+    const { name,password, email} = req.body;
     try {
         await User.update(
             {
-               
+                name: name,
+       password: password,
+       email:email
             },
             {
                 where: {
@@ -58,12 +60,13 @@ const updateUser = async (req, res) => {
                 }
             }
         ).then(() => {
-            res.json("            ");
+            res.json("Usuário atualizado realizado com sucesso!");
         })
     } catch (error) {
-        res.status(404).json("                !");
+        res.status(404).json("Usuário atualizado realizado com sucesso!");
     }
 }
+/*
 const authenticatedUser = async (req, res) => {
     const {       } = req.body;
     try {
@@ -90,5 +93,5 @@ const authenticatedUser = async (req, res) => {
 }
 module.exports = { createUser, findUsers, deleteUser, updateUser, authenticatedUser };
 */
-module.exports = { createUser,  findUsers,deleteUser};
+module.exports = { createUser,  findUsers,deleteUser,updateUser};
 
