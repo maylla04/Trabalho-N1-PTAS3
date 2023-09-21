@@ -1,0 +1,137 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: #151320;
+    color: white;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+}
+
+.linguagens{
+    position: relative;
+    width: 70%;
+    height: 80%;
+    text-transform: uppercase;
+    background: #151320;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    font-size: auto;
+    margin-bottom: 20%;
+}
+.linguagens:before, .linguagens:after{
+    content: '';
+    position: absolute;
+    z-index: -1;
+    width: calc(100% + 30px);
+    height: calc(100% + 30px);
+    background: linear-gradient(45deg, #ff0055, #a200ff, #001aff, #ff0055, #a200ff, #001aff, 
+    #ff0055, #a200ff, #001aff, #ff0055, #a200ff, #001aff, #ff0055);
+    background-size: 300%;
+    animation: AnimarBorda 6s linear infinite;
+    border-radius: 8px;
+}
+.linguagens:after{
+    filter: blur(50px);
+}
+
+@keyframes AnimarBorda{
+    0%{
+        background-position: 0;
+    }
+    100%{
+        background-position: 300%;
+    }
+}
+/*encima, direita, baixo, esquerda*/
+h2{
+    margin: 10% 10% 0% 10%;
+}
+header{
+  
+    margin-bottom: 80px;
+}
+li{
+    margin: 2% 10% 5% 10%;
+}
+footer{
+    position: relative;
+    width: 100%;
+    background-color: #3586ff;
+    min-height: 100px;
+    padding: 20px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+footer .wave{
+    position:absolute;
+    top: -100px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background:  url(wave.png);
+    background-size: 1000px  100px;
+}
+footer .wave#wave1{
+    z-index: 1000;
+    opacity: 1;
+    bottom: 0;
+    animation: animateWave 4s linear infinite;
+}
+footer .wave#wave2{
+    z-index: 999;
+    opacity: 0.5;
+    bottom: 10px;
+    animation: animateWave_02 4s linear infinite;
+}
+footer .wave#wave3{
+    z-index: 1000;
+    opacity: 0.3;
+    bottom: 15px;
+    animation: animateWave 4s linear infinite;
+}
+footer .wave#wave4{
+    z-index: 1000;
+    opacity: 0.7;
+    bottom: 20px;
+    animation: animateWave 4s linear infinite;
+}
+
+@keyframes animateWave{
+    0%{
+        background-position-x: 1000px;
+    } 100%{
+        background-position-x: 0px;
+    }
+}
+@keyframes animateWave_02{
+    0%{
+        background-position-x: 0px;
+    } 100%{
+        background-position-x: 1000px;
+    }
+}
+img{
+    width: 20%;
+    height: 20%;
+    margin-right: 10%;
+    margin-top: 6%;
+}
+.grid{
+    display: flex;
+    margin-left: 5%;
+}
+.lista{
+    width: 100%;
+}
