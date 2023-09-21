@@ -18,9 +18,19 @@
    <H2> componentes:</H2>
   <ul> 
    <li> Config: conecta ao banco de dados</li> 
-   <li> Controler Contem os métodos: Update(atualizar), delete(deletar), create(criar),authentic(autenticar) e find( encontrar o usuário) </li>
+   <li> Controler Contem os métodos: Update(atualizar), delete(deletar), create(criar),authentic(autenticar) , find( encontrar o usuário) e createUser (cadastra o usuário) </li>
   </ul>
   </ul>
+  <div> 
+    <h2>Rotas e métodos </h2>
+    <ul>
+      <li> http://localhost:3000/user : utiliza o método post -- rota responsável pelo cadastro, utilizando também o createUser</li>
+      <li> http://localhost:3000/users : utiliza o método get -- rota responsável por encontrar o usuário, utilizando também o FindUser</li>
+      <li> http://localhost:3000/user/:id : utiliza o método delete -- rota responsável por deletar o usuário, utilizando também o deleteUser</li>
+     <li> http://localhost:3000/user/:id  utiliza o método put - rota responsável por atualizar os dados dos usuários , utilizando também updateUser</li>
+     <li> http://localhost:3000/user/authenticated utiliza o método post -     rota responsável por autenticar os dados dos usuários (coloca-los), utilizando também   authenticatedUser         </li>
+    </ul>
+  </div>
   <footer>
     <div> <p> Desenvolvido pela Maylla e Maria Luiza 2023</p></div>
   </footer>
