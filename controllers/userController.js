@@ -6,10 +6,10 @@ const jwt = require('jsonwebtoken');
 
 const createUser = async (req, res) => {
     const { name,password, email} = req.body;
-    const newpassword = await bcrypt.hash(password, 10);
+    const passwordCrypto = await bcrypt.hash(password, 10);
     await User.create({
        name: name,
-       password: newpassword,
+       password: passwordCrypto,
        email:email
 
 
@@ -17,7 +17,7 @@ const createUser = async (req, res) => {
         res.json('Cadastro de usuário realizado com sucesso! ');
         console.log('Cadastro de usuário realizado com sucesso!');
     }).catch((erro) => {
-        res.json(' deu pau             ');
+        res.json(' deu pau');
         console.log(`É isso amigos  : ${erro}`);
     })
 }
@@ -58,7 +58,7 @@ const updateUser = async (req, res) => {
             },
             {
                 where: {
-                    id: id
+                    id: parseInt{req.params.id}
                 }
             }
         ).then(() => {
@@ -76,9 +76,12 @@ const authenticatedUser = async (req, res) => {
         const isUserAuthenticated = await User.findOne({
             where: {
                 email: email,
-                password: response
+                
             }
         })
+        if (!isUserAuthenticated){
+            return
+        }
         const token = jwt.sign({
             id: email },
             secret.secret, {
