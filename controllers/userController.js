@@ -47,24 +47,19 @@ const deleteUser = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-    const id = parseInt(req.params.id);
+    
     const { name,password, email} = req.body;
     try {
-        await User.update(
-            {
+        await User.update({
                 name: name,
-       password: password,
-       email:email
-            },
-            {
-                where: {
-                    id: parseInt{req.params.id}
-                }
-            }
-        ).then(() => {
+                password: password,
+                email:email
+            },{
+                where: { id: parseInt(req.params.id)}
+            })
             res.json("Usuário atualizado realizado com sucesso!");
-        })
-    } catch (error) {
+        
+    } catch (err) {
         res.status(404).json("Usuário atualizado realizado com sucesso!");
     }
 }
@@ -73,14 +68,24 @@ const authenticatedUser = async (req, res) => {
     const { email, password, newpassword } = req.body;
     const response = await bcrypt.compare(password, newpassword);
     try {
-        const isUserAuthenticated = await User.findOne({
-            where: {
-                email: email,
-                
-            }
+        const isUserAuthenticated = await User.findOne({ where: { email, password }
         })
+       if(isUserAuthenticated){
+         const token = jwt.sign({id:email}, secret.secret , {expiresIn: 86400  })
+              res.cookie('token', token, {httpOnly: true}.json({
+                    name: isUserAuthenticated.name,
+                   email: isUserAuthenticated.email,
+                   token:token
+                }))
+          
+        }
         if (!isUserAuthenticated){
-            return
+            return res.status(401).json("Usuario não encontrado")
+        }
+        const isPasswordValidate = await bcrypt.compare(password, isUserAuthenticated.password);
+
+        if(!isPasswordValidate){
+            return res.status(401).json("A senha não corresponde")
         }
         const token = jwt.sign({
             id: email },

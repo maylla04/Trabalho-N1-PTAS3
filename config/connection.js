@@ -1,8 +1,15 @@
 const { Sequelize } = require('sequelize');
 const config = require('../config/config')
 require('dotenv').config();
+const pg = require('pg');
 
-const sequelize = new Sequelize(  config.development  );
+const sequelize = new Sequelize(config.development.url, {
+  define: {
+    timetamps: true,
+    underscored: true,
+  },
+  dialectModule: pg
+});
 
 try {
   sequelize.authenticate();
