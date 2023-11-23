@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, 'views')));
 app.use(express.urlencoded({ extended: false }));
 
 
-const routes = require('./routers/routes');
+
 app.use(cookieParser());
 app.use(
 expressJWT({
@@ -26,6 +26,7 @@ expressJWT({
        path:["/user/authenticated"]
    })
 )
+const routes = require('./routers/routes');
 app.use(express.json(), routes, cors());
 app.listen(port, () => { console.log(`Run server...${port}`) });
 

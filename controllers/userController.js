@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const secret = require('../config/auth.json');
+require('dotenv').config();
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 
@@ -65,38 +65,30 @@ const updateUser = async (req, res) => {
 }
 
 const authenticatedUser = async (req, res) => {
-    const { email, password, newpassword } = req.body;
-    const response = await bcrypt.compare(password, newpassword);
+    const { email, password } = req.body;
+    
     try {
-        const isUserAuthenticated = await User.findOne({ where: { email, password }
-        })
-       if(isUserAuthenticated){
-         const token = jwt.sign({id:email}, secret.secret , {expiresIn: 86400  })
-              res.cookie('token', token, {httpOnly: true}.json({
-                    name: isUserAuthenticated.name,
-                   email: isUserAuthenticated.email,
-                   token:token
-                }))
-          
-        }
+        
+        const isUserAuthenticated = await User.findOne({ where: { email }});
+        
         if (!isUserAuthenticated){
             return res.status(401).json("Usuario não encontrado")
         }
+        
         const isPasswordValidate = await bcrypt.compare(password, isUserAuthenticated.password);
-
         if(!isPasswordValidate){
             return res.status(401).json("A senha não corresponde")
         }
         const token = jwt.sign({
             id: email },
-            secret.secret, {
+            process.env.SECRET, {
             expiresIn: 86400,
         })
-        return res.json({
+        res.cookie('token', token, {httpOnly: true}).json({
             name: isUserAuthenticated.name,
-            email: isUserAuthenticated.email,
-            token: token
-        });
+           email: isUserAuthenticated.email,
+           token:token
+        })
     } catch (error) {
         return res.json("Usuário não foi encontrado");
     }
