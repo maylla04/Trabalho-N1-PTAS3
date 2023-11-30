@@ -47,22 +47,25 @@ const deleteUser = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-    
+    const id = parseInt(req.params.id)}
     const { name,password, email} = req.body;
+    const passwordCrypto = await bcrypt.hash(password, 10);
     try {
         await User.update({
                 name: name,
-                password: password,
+                password: passwordCrypto,
                 email:email
             },{
-                where: { id: parseInt(req.params.id)}
+                where: {
+                    id: id
+                }
             })
             res.json("Usuário atualizado realizado com sucesso!");
         
     } catch (err) {
         res.status(404).json("Usuário atualizado realizado com sucesso!");
     }
-}
+
 
 const authenticatedUser = async (req, res) => {
     const { email, password } = req.body;
